@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * printable: Evaluates if a char is printable
+ * printable -  Evaluates if a char is printable
  * @c: Char to be evaluated.
  *
  * Return: 1 if c is printable, 0 otherwise
@@ -58,7 +58,7 @@ int digit(char c)
  *
  * Return: Casted value of num
  */
-long int convert_size_numb(long int num, int size)
+long int convert_size_num(long int num, int size)
 {
 	if (size == S_LONG)
 		return (num);
