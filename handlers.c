@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * write_char -  Prints a string tbadlha write_char - Prints a string
+ * write_char -  Prints a string
  * @c: char types.
  * @buff: Buffer array to handle print
  * @flags:  Calculates active flags.
@@ -116,13 +116,13 @@ int num(int ind, char buff[],
 				buff[--ind] = extra_c;
 			return (write(1, &buff[ind], len) + write(1, &buff[1], i - 1));
 		}
-		else if (!(flags & F_MIN) && padd == ' ')/* extra char to left of buff */
+		else if (!(flags & F_MINUS) && padd == ' ')/* extra char to left of buff */
 		{
 			if (extra_c)
 				buff[--ind] = extra_c;
 			return (write(1, &buff[1], i - 1) + write(1, &buff[ind], len));
 		}
-		else if (!(flags & F_MIN) && padd == '0')/* extra char to left of padd */
+		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
 		{
 			if (extra_c)
 				buff[--padd_start] = extra_c;
@@ -170,7 +170,7 @@ int unsgnd(int is_neg, int ind,
 		len++;
 	}
 
-	if ((flags & F_ZERO) && !(flags & F_MIN))
+	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
 
 	if (width > len)
@@ -180,7 +180,7 @@ int unsgnd(int is_neg, int ind,
 
 		buff[i] = '\0';
 
-		if (flags & F_MIN) /* Asign extra char to left of buff [buff>padd]*/
+		if (flags & F_MINUS) /* Asign extra char to left of buff [buff>padd]*/
 		{
 			return (write(1, &buff[ind], len) + write(1, &buff[0], i));
 		}
@@ -224,7 +224,7 @@ int pointer(char buff[], int ind, int len,
 				buff[--ind] = extra_c;
 			return (write(1, &buff[ind], len) + write(1, &buff[3], i - 3));
 		}
-		else if (!(flags & F_MIN) && padd == ' ')/* extra char to left of buff */
+		else if (!(flags & F_MINUS) && padd == ' ')/* extra char to left of buff */
 		{
 			buff[--ind] = 'x';
 			buff[--ind] = '0';
@@ -232,7 +232,7 @@ int pointer(char buff[], int ind, int len,
 				buff[--ind] = extra_c;
 			return (write(1, &buff[3], i - 3) + write(1, &buff[ind], len));
 		}
-		else if (!(flags & F_MIN) && padd == '0')/* extra char to left of padd */
+		else if (!(flags & F_MINUS) && padd == '0')/* extra char to left of padd */
 		{
 			if (extra_c)
 				buff[--padd_start] = extra_c;
