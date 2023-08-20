@@ -50,7 +50,7 @@ int print_octal(va_list args, char buffer[],
 
 	UNUSED(width);
 
-	num = convert_size_unsigned_int(num, size);
+	num = convert_size_unsignd(num, size);
 
 	if (num == 0)
 		buffer[i--] = '0';
@@ -64,7 +64,7 @@ int print_octal(va_list args, char buffer[],
 	if (flags & F_HASH && init_num != 0)
 		buffer[i--] = '0';
 	i++;
-	return (write_unsigned_int(0, i, buffer, flags, width, precision, size));
+	return (write_unsgnd_int(0, i, buffer, flags, width, precision, size));
 }
 /*** PRINTING AN UNSIGNED NUM IN HEXADECIMAL ***/
 /**

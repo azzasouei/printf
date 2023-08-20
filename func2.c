@@ -42,7 +42,7 @@ int print_pointer(va_list args, char buffer[],
 	else if (flags & F_SPACE)
 		extra_c = ' ', len++;
 	index++;
-	return (write_pointer(buffer, index, len,
+	return (print_pointer(buffer, index, len,
 				width, flags, padd, extra_c, padd_start));
 }
 /*** PRINTING NON PRINTABLE ***/
