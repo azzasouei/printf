@@ -70,7 +70,7 @@ int print_string(va_list args, char buffer[],
 }
 /*** PERCENT SIGN PRINTING ***/
 /**
- * print_percent - prints percent sign
+ * print_per - prints percent sign
  * @args: list of args
  * @buffer: buffer array to handle print
  * @flags:calculates active flags
@@ -79,7 +79,7 @@ int print_string(va_list args, char buffer[],
  * @size: size specifier
  * Return: num of characters
  */
-int print_percent(va_list args, char buffer[],
+int print_per(va_list args, char buffer[],
 		int flags, int width, int precision, int size)
 {
 	UNUSED(args);

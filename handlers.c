@@ -20,7 +20,7 @@ int write_char(char c, char buff[],
 	UNUSED(precision);
 	UNUSED(size);
 
-	if (flag & F_ZERO)
+	if (flags & F_ZERO)
 		padd = '0';
 
 	buff[i++] = c;
@@ -32,7 +32,7 @@ int write_char(char c, char buff[],
 		for (i = 0; i < width - 1; i++)
 			buff[BUFF_SIZE - i - 2] = padd;
 
-		if (flag & F_MINUS)
+		if (flags & F_MINUS)
 			return (write(1, &buff[0], 1) +
 					write(1, &buff[BUFF_SIZE - i - 1], width - 1));
 		else
@@ -48,7 +48,7 @@ int write_char(char c, char buff[],
  * @is_neg: Lista of arguments
  * @ind: char types.
  * @buff: Buffer array to handle print
- * @flag:  Calculates active flags
+ * @flags:  Calculates active flags
  * @width: get width.
  * @precision: precision specifier
  * @size: Size specifier
@@ -56,23 +56,23 @@ int write_char(char c, char buff[],
  * Return: Number of chars printed.
  */
 int number(int is_neg, int ind, char buff[],
-	int flag, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	int len = BUFF_SIZE - ind - 1;
 	char padd = ' ', extra_ch = 0;
 
 	UNUSED(size);
 
-	if ((flag & F_ZERO) && !(flag & F_MIN))
+	if ((flags & F_ZERO) && !(flags & F_MIN))
 		padd = '0';
 	if (is_neg)
 		extra_ch = '-';
-	else if (flag & F_PLUS)
+	else if (flags & F_PLUS)
 		extra_ch = '+';
-	else if (flag & F_SPACE)
+	else if (flags & F_SPACE)
 		extra_ch = ' ';
 
-	return (num(ind, buff, flag, width, precision,
+	return (num(ind, buff, flags, width, precision,
 		len, padd, extra_ch));
 }
 
@@ -80,7 +80,7 @@ int number(int is_neg, int ind, char buff[],
  * num - Write a number using a buff
  * @ind: Index at which the number starts on the buffer
  * @buff: Buffer
- * @flag: Flags
+ * @flags: Flags
  * @width: width
  * @prec: Precision specifier
  * @len: Number length
@@ -90,7 +90,7 @@ int number(int is_neg, int ind, char buff[],
  * Return: Number of printed chars.
  */
 int num(int ind, char buff[],
-	int flag, int width, int prec,
+	int flags, int width, int prec,
 	int len, char padd, char extra_c)
 {
 	int i, padd_start = 1;
@@ -110,13 +110,13 @@ int num(int ind, char buff[],
 		for (i = 1; i < width - len + 1; i++)
 			buff[i] = padd;
 		buff[i] = '\0';
-		if (flag & F_MIN && padd == ' ')/* Asign extra char to left of buff */
+		if (flags & F_MIN && padd == ' ')/* Asign extra char to left of buff */
 		{
 			if (extra_c)
 				buff[--ind] = extra_c;
 			return (write(1, &buff[ind], len) + write(1, &buff[1], i - 1));
 		}
-		else if (!(flag & F_MIN) && padd == ' ')/* extra char to left of buff */
+		else if (!(flags & F_MIN) && padd == ' ')/* extra char to left of buff */
 		{
 			if (extra_c)
 				buff[--ind] = extra_c;
