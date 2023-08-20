@@ -41,7 +41,7 @@ typedef struct format format_t;
 
 int _printf(const char *format, ...);
 int handle_print(const char *format, int *i,
-va_list args, char buff[], int flag, int width, int precision, int size);
+va_list args, char buff[], int flags, int width, int precision, int size);
 
 /****************** FUNCTIONS ******************/
 
@@ -60,11 +60,11 @@ int print_bin(va_list args, char buff[],
 	int flags, int width, int precision, int size);
 int print_unsigned(va_list args, char buff[],
 	int flags, int width, int precision, int size);
-int print_oct(va_list args, char buff[],
+int print_octal(va_list args, char buff[],
 	int flags, int width, int precision, int size);
 int print_hexa(va_list args, char buff[],
 	int flags, int width, int precision, int size);
-int print_hex_upper(va_list args, char buff[],
+int print_hexa_upper(va_list args, char buff[],
 	int flags, int width, int precision, int size);
 
 int print_hex(va_list args, char map_to[],
@@ -93,13 +93,13 @@ int print_rot13(va_list args, char buff[],
 	int flags, int width, int precision, int size);
 
 /* width handler */
-int handle_write_char(char c, char buff[],
+int write_char(char c, char buff[],
 	int flags, int width, int precision, int size);
-int write_num(int is_positive, int ind, char buff[],
+int write_num(int is_neg, int ind, char buff[],
 	int flags, int width, int precision, int size);
-int write_num(int ind, char buff[], int flags, int width, int precision,
+int num(int ind, char buff[], int flags, int width, int precision,
 	int len, char padd, char extra_c);
-int write_pointer(char buff[], int ind, int len,
+int pointer(char buff[], int ind, int len,
 	int width, int flags, char padd, char extra_c, int padd_start);
 
 int write_unsgnd(int is_neg, int ind,
