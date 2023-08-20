@@ -95,7 +95,7 @@ int print_non_printable(va_list args, char buffer[],
 int print_rev(va_list args, char buffer[],
 		int flags, int width, int precision, int size)
 {
-	chat *str;
+	char *str;
 	int i, counter = 0;
 
 	UNUSED(buffer);

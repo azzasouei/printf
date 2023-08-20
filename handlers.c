@@ -63,7 +63,7 @@ int write_num(int is_neg, int ind, char buff[],
 
 	UNUSED(size);
 
-	if ((flags & F_ZERO) && !(flags & F_MIN))
+	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
 	if (is_neg)
 		extra_ch = '-';
@@ -110,7 +110,7 @@ int num(int ind, char buff[],
 		for (i = 1; i < width - len + 1; i++)
 			buff[i] = padd;
 		buff[i] = '\0';
-		if (flags & F_MIN && padd == ' ')/* Asign extra char to left of buff */
+		if (flags & F_MINUS && padd == ' ')/* Asign extra char to left of buff */
 		{
 			if (extra_c)
 				buff[--ind] = extra_c;
@@ -216,7 +216,7 @@ int pointer(char buff[], int ind, int len,
 		for (i = 3; i < width - len + 3; i++)
 			buff[i] = padd;
 		buff[i] = '\0';
-		if (flags & F_MIN && padd == ' ')/* Asign extra char to left of buff */
+		if (flags & F_MINUS && padd == ' ')/* Asign extra char to left of buff */
 		{
 			buff[--ind] = 'x';
 			buff[--ind] = '0';
