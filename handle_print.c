@@ -15,7 +15,7 @@ int handle_print(const char *format, int *index, va_list args, char buff[], int 
 {
 	int i, un_len = 0, p_chars = -1;
 	format_t format_args[] = {
-		{'c', print_char}, {'s', print_string}, {'%', print_per}, {'i', print_int}, {'d', print_int}, {'b', print_bin}, {'u', print_unsig}, {'o', print_oct}, {'x', print_hexa}, {'X', print_hex_upper}, {'p', print_pointer}, {'S', print_non_printable}, {'r', print_rev}, {'R', print_rot13}, {'\0', NULL}
+		{'c', print_char}, {'s', print_string}, {'%', print_per}, {'i', print_int}, {'d', print_int}, {'b', print_bin}, {'u', print_unsigned}, {'o', print_oct}, {'x', print_hexa}, {'X', print_hex_upper}, {'p', print_pointer}, {'S', print_non_printable}, {'r', print_rev}, {'R', print_rot13}, {'\0', NULL}
 	}
 	for (i = 0; format_args[i].format !='\0'; i++)
 		if(format[*ind] == format_args[i].format)

@@ -109,7 +109,7 @@ int print_int(va_list args, char buffer[],
 	long int n = va_arg(args, long int);
 	unsigned long int num;
 
-	n = convert_size_number(n, size);
+	n = convert_size_numb(n, size);
 
 	if (n == 0)
 		buffer[i--] = '0';
@@ -127,7 +127,7 @@ int print_int(va_list args, char buffer[],
 		num /= 10;
 	}
 	i++;
-	return (write_numbers(is_neg, i, flags, width, precision, size));
+	return (write_num(is_neg, i, flags, width, precision, size));
 }
 /*** BINARY PRINTING ***/
 /**

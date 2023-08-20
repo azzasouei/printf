@@ -44,7 +44,7 @@ int write_char(char c, char buff[],
 }
 
 /**
- * number -  Prints a string
+ * write_num -  Prints a string
  * @is_neg: Lista of arguments
  * @ind: char types.
  * @buff: Buffer array to handle print
@@ -55,7 +55,7 @@ int write_char(char c, char buff[],
  *
  * Return: Number of chars printed.
  */
-int number(int is_neg, int ind, char buff[],
+int write_num(int is_neg, int ind, char buff[],
 	int flags, int width, int precision, int size)
 {
 	int len = BUFF_SIZE - ind - 1;
@@ -72,7 +72,7 @@ int number(int is_neg, int ind, char buff[],
 	else if (flags & F_SPACE)
 		extra_ch = ' ';
 
-	return (num(ind, buff, flags, width, precision,
+	return (write_num(ind, buff, flags, width, precision,
 		len, padd, extra_ch));
 }
 
@@ -140,7 +140,7 @@ int num(int ind, char buff[],
  * @is_neg: Number indicating if the num is negative
  * @ind: Index at which the number starts in the buffer
  * @buff: Array of chars
- * @flag: Flags specifiers
+ * @flags: Flags specifiers
  * @width: Width specifier
  * @precision: Precision specifier
  * @size: Size specifier
@@ -149,7 +149,7 @@ int num(int ind, char buff[],
  */
 int unsgnd(int is_neg, int ind,
 	char buff[],
-	int flag, int width, int precision, int size)
+	int flags, int width, int precision, int size)
 {
 	/* The number is stored at the bufer's right and starts at position i */
 	int len = BUFF_SIZE - ind - 1, i = 0;
@@ -170,19 +170,19 @@ int unsgnd(int is_neg, int ind,
 		len++;
 	}
 
-	if ((flag & F_ZERO) && !(flag & F_MIN))
+	if ((flags & F_ZERO) && !(flags & F_MIN))
 		padd = '0';
 
-	if (width > leng)
+	if (width > len)
 	{
 		for (i = 0; i < width - len; i++)
 			buff[i] = padd;
 
 		buff[i] = '\0';
 
-		if (flag & F_MIN) /* Asign extra char to left of buff [buff>padd]*/
+		if (flags & F_MIN) /* Asign extra char to left of buff [buff>padd]*/
 		{
-			return (write(1, &buff[ind], leng) + write(1, &buff[0], i));
+			return (write(1, &buff[ind], len) + write(1, &buff[0], i));
 		}
 		else /* Asign extra char to left of padding [padd>buff]*/
 		{
@@ -199,7 +199,7 @@ int unsgnd(int is_neg, int ind,
  * @ind: Index at which the number starts in the buffer
  * @len: Length of number
  * @width: Width specifier
- * @flag: Flags specifier
+ * @flags: Flags specifier
  * @padd: Char representing the padding
  * @extra_c: Char representing extra char
  * @padd_start: Index at which padding should start
@@ -207,7 +207,7 @@ int unsgnd(int is_neg, int ind,
  * Return: Number of written chars.
  */
 int pointer(char buff[], int ind, int len,
-	int width, int flag, char padd, char extra_c, int padd_start)
+	int width, int flags, char padd, char extra_c, int padd_start)
 {
 	int i;
 
@@ -216,7 +216,7 @@ int pointer(char buff[], int ind, int len,
 		for (i = 3; i < width - len + 3; i++)
 			buff[i] = padd;
 		buff[i] = '\0';
-		if (flag & F_MIN && padd == ' ')/* Asign extra char to left of buff */
+		if (flags & F_MIN && padd == ' ')/* Asign extra char to left of buff */
 		{
 			buff[--ind] = 'x';
 			buff[--ind] = '0';
@@ -224,7 +224,7 @@ int pointer(char buff[], int ind, int len,
 				buff[--ind] = extra_c;
 			return (write(1, &buff[ind], len) + write(1, &buff[3], i - 3));
 		}
-		else if (!(flag & F_MIN) && padd == ' ')/* extra char to left of buff */
+		else if (!(flags & F_MIN) && padd == ' ')/* extra char to left of buff */
 		{
 			buff[--ind] = 'x';
 			buff[--ind] = '0';
@@ -232,7 +232,7 @@ int pointer(char buff[], int ind, int len,
 				buff[--ind] = extra_c;
 			return (write(1, &buff[3], i - 3) + write(1, &buff[ind], len));
 		}
-		else if (!(flag & F_MIN) && padd == '0')/* extra char to left of padd */
+		else if (!(flags & F_MIN) && padd == '0')/* extra char to left of padd */
 		{
 			if (extra_c)
 				buff[--padd_start] = extra_c;

@@ -33,7 +33,7 @@ int print_pointer(va_list args, char buffer[],
 	{
 		buffer[index--] = arr_of[num_addrs % 16];
 		num_addrs /= 16;
-		len++
+		len++;
 	}
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
@@ -72,10 +72,10 @@ int print_non_printable(va_list args, char buffer[],
 
 	while (str[i] != '\0')
 	{
-		if (is_pritable(str[i]))
+		if (is_printable(str[i]))
 			buffer[i + offset] = str[i];
 		else
-			offset += append_hexa_code(str[i], buffer, i + offset);
+			offset += append_hex_code(str[i], buffer, i + offset);
 		i++;
 	}
 	buffer[i + offset] = '\0';
@@ -92,7 +92,7 @@ int print_non_printable(va_list args, char buffer[],
  * @size: size specifier
  * Return: number of characters
  */
-int print_rev(va_list args, chat buffer[],
+int print_rev(va_list args, char buffer[],
 		int flags, int width, int precision, int size)
 {
 	chat *str;
